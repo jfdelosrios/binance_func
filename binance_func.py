@@ -80,11 +80,11 @@ def abrirInstantanea(
         cantidadTotal:float,
         inversion:float, # viene de 0 a 100
         riesgoPorcentual:float
-    ) ->dict:
+    ) -> dict:
     """
     Intenta meter una orden instantanea a mercado.
 
-    inversion:float, # viene de 0 a 100
+    inversion:float, Nos dice cuanto porcentaje (de 0 a 100) van a ser usados de la cantidadTotal
 
     riesgoPorcentual: 1 / Abs(OpenPrice - stopLoss)
 
@@ -95,7 +95,7 @@ def abrirInstantanea(
             api_secret = cuenta['secret_key']
         )
 
-    obj_simbolo = C_Simbolo(_symbol = simbolo)
+    obj_simbolo = C_Simbolo(simbolo = simbolo)
 
     usd = cantidadTotal * inversion / 100.0
 
@@ -130,7 +130,7 @@ def abrirInstantanea(
 
     return  {
             'status':   [
-                            'true',
+                            'ok',
                             'Compra de {} {} satisfactoria.'.format(
                                         dict_cant['out'], 
                                         simbolo
@@ -224,8 +224,8 @@ def ponerOrdenPendiente(
             api_secret = cuenta['secret_key']
         )
 
-    obj_simbolo = C_Simbolo(_symbol = simbolo)
-    
+    obj_simbolo = C_Simbolo(simbolo = simbolo)
+
     dict_precio = obj_simbolo.formatear_precio(
             precioApertura
         )
@@ -242,6 +242,8 @@ def ponerOrdenPendiente(
                             )
                        ]
                 }
+
+    dict_precio['out'] = '{:.8f}'.format(dict_precio['out'])
 
     dict_cant = obj_simbolo.formatear_cant_monedas(cant_monedas)
     
