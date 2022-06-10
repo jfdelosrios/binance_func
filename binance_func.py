@@ -33,7 +33,7 @@ def cantMonedas_1(cuenta:dict, moneda: str) -> dict:
     except BinanceAPIException as error:
         
         return {
-                'status': ['error', '{}'.format(moneda, error)], 
+                'status': ['error', 'Binance, {}'.format(error)], 
                 'out': -1
             }
 
@@ -44,7 +44,7 @@ def cantMonedas_1(cuenta:dict, moneda: str) -> dict:
         return {'status': ['ok', ''], 'out': float(i['free'])}
 
     return {
-            'status': ['error', 'No encontré la moneda {}'.format(moneda)], 
+            'status': ['error', 'Binance, No encontré la moneda {}'.format(moneda)], 
             'out': -1
         }
         
